@@ -44,3 +44,14 @@ public class RegExp {
         return matches.count > 0
     }
 }
+
+infix operator =~ {}
+
+func =~ (text: String, pattern: String) -> Bool {
+    do {
+        let regExp = try RegExp(pattern)
+        return regExp.test(text)
+    } catch {
+        return false
+    }
+}
