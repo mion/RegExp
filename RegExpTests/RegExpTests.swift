@@ -39,6 +39,14 @@ class RegExpTests: XCTestCase {
         }
     }
     
+    func testRegExpOperator() {
+        let phoneNumber = "Tel.: 9876-6543"
+        XCTAssertTrue(phoneNumber =~ "\\d{4}-\\d{4}")
+        
+        let fullName = "Mrs. Jane Smith"
+        XCTAssertTrue(fullName =~ "^Mrs.\\s(.*)$")
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock {
