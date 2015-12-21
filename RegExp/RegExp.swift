@@ -16,13 +16,24 @@ public struct RegExpOptions : OptionSetType {
     public static let AllowCommentsAndWhitespace = RegExpOptions(rawValue: 2)
 }
 
+public enum RegExpError: ErrorType {
+    case InvalidPattern(pattern: String)
+}
+
 public class RegExp {
-//    internal var expression: NSRegularExpression
+    internal let regularExpression: NSRegularExpression!
     
-    public init(_ pattern: String, _ options: RegExpOptions = []) {
+    public init(_ pattern: String, _ options: RegExpOptions = []) throws {
+        do {
+            regularExpression = try NSRegularExpression(pattern: pattern, options: .DotMatchesLineSeparators)
+        } catch {
+            regularExpression = nil
+            throw RegExpError.InvalidPattern(pattern: pattern)
+        }
     }
     
     public func test(text: String) -> Bool {
-        return false
+        let matches = self.regularExpression.matchesInString(text, options: [], range: NSMakeRange(0, text.characters.count))
+        return matches.count > 0
     }
 }
