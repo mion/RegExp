@@ -24,18 +24,18 @@ class RegExpTests: XCTestCase {
     func testRegExpOptions() {
         do {
             let re1 = try RegExp("^Jump(.*)line\\sfoobar$")
-            XCTAssertTrue( re1.test("Jump\nto\nanother\nline foobar") , "ignored default option dot matches line separator")
+            XCTAssertTrue(re1.test("Jump\nto\nanother\nline foobar"), "ignored default option dot matches line separator")
             
             let re2 = try RegExp("hello (.*)", .CaseInsensitive)
-            XCTAssertTrue( re2.test("HeLlo WoRLD") , "ignored case insensitive option")
+            XCTAssertTrue(re2.test("HeLlo WoRLD"), "ignored case insensitive option")
             
             let re3 = try RegExp("a+b # this is a comment", .AllowCommentsAndWhitespace)
-            XCTAssertTrue( re3.test("aaaaab") , "ignored comments and whitespace option")
+            XCTAssertTrue(re3.test("aaaaab"), "ignored comments and whitespace option")
             
             let re4 = try RegExp("he+llo+ # world", [.CaseInsensitive, .AllowCommentsAndWhitespace])
-            XCTAssertTrue( re4.test("heeEEEeeeEeellOooO"), "ignored both case insensitive and comment+whitespace options")
+            XCTAssertTrue(re4.test("heeEEEeeeEeellOooO"), "ignored both case insensitive and comment+whitespace options")
         } catch {
-            XCTAssert( false , "something went wrong")
+            XCTAssert(false, "invalid pattern")
         }
     }
     
