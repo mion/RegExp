@@ -10,6 +10,8 @@
 		4D8232851C284A2C006F42B1 /* RegExp.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D8232841C284A2C006F42B1 /* RegExp.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D82328C1C284A2C006F42B1 /* RegExp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D8232811C284A2C006F42B1 /* RegExp.framework */; };
 		4D8232911C284A2C006F42B1 /* RegExpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8232901C284A2C006F42B1 /* RegExpTests.swift */; };
+		4D82329C1C284A5E006F42B1 /* RegExp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D82329B1C284A5E006F42B1 /* RegExp.swift */; };
+		4D82329D1C284B59006F42B1 /* RegExp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D82329B1C284A5E006F42B1 /* RegExp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,7 @@
 		4D82328B1C284A2C006F42B1 /* RegExpTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RegExpTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D8232901C284A2C006F42B1 /* RegExpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegExpTests.swift; sourceTree = "<group>"; };
 		4D8232921C284A2C006F42B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D82329B1C284A5E006F42B1 /* RegExp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegExp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +76,7 @@
 			children = (
 				4D8232841C284A2C006F42B1 /* RegExp.h */,
 				4D8232861C284A2C006F42B1 /* Info.plist */,
+				4D82329B1C284A5E006F42B1 /* RegExp.swift */,
 			);
 			path = RegExp;
 			sourceTree = "<group>";
@@ -196,6 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D82329C1C284A5E006F42B1 /* RegExp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D82329D1C284B59006F42B1 /* RegExp.swift in Sources */,
 				4D8232911C284A2C006F42B1 /* RegExpTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,6 +316,7 @@
 		4D8232961C284A2C006F42B1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -320,12 +327,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = mion.RegExp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		4D8232971C284A2C006F42B1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;

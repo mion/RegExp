@@ -21,9 +21,15 @@ class RegExpTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testRegExpOptions() {
+        let re1 = RegExp("Hello (.*)")
+        XCTAssertTrue( re1.test("Hello world") )
+        
+        let re2 = RegExp("hello (.*)", .CaseInsensitive)
+        XCTAssertTrue( re2.test("HeLlo WoRLD") , "ignored case insensitive option")
+        
+        let re3 = RegExp("a+b # this is a comment", [.AllowCommentsAndWhitespace, .CaseInsensitive])
+        XCTAssertTrue( re3.test("aaaaab") , "ignored comments and whitespace option")
     }
     
     func testPerformanceExample() {
