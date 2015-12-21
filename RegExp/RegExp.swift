@@ -25,7 +25,14 @@ public class RegExp {
     
     public init(_ pattern: String, _ options: RegExpOptions = []) throws {
         do {
-            regularExpression = try NSRegularExpression(pattern: pattern, options: .DotMatchesLineSeparators)
+            var regularExpressionOptions: NSRegularExpressionOptions = [.DotMatchesLineSeparators]
+            if options.contains(RegExpOptions.CaseInsensitive) {
+                regularExpressionOptions.unionInPlace(.CaseInsensitive)
+            }
+            if options.contains(RegExpOptions.AllowCommentsAndWhitespace) {
+                regularExpressionOptions.unionInPlace(.AllowCommentsAndWhitespace)
+            }
+            regularExpression = try NSRegularExpression(pattern: pattern, options: regularExpressionOptions)
         } catch {
             regularExpression = nil
             throw RegExpError.InvalidPattern(pattern: pattern)
