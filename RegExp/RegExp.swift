@@ -17,26 +17,20 @@ public struct RegExpOptions : OptionSetType {
 }
 
 public enum RegExpError: ErrorType {
-    case InvalidPattern(pattern: String)
 }
 
 public class RegExp {
     internal let regularExpression: NSRegularExpression!
     
-    public init(_ pattern: String, _ options: RegExpOptions = []) throws {
-        do {
-            var regularExpressionOptions: NSRegularExpressionOptions = [.DotMatchesLineSeparators]
-            if options.contains(RegExpOptions.CaseInsensitive) {
-                regularExpressionOptions.unionInPlace(.CaseInsensitive)
-            }
-            if options.contains(RegExpOptions.AllowCommentsAndWhitespace) {
-                regularExpressionOptions.unionInPlace(.AllowCommentsAndWhitespace)
-            }
-            regularExpression = try NSRegularExpression(pattern: pattern, options: regularExpressionOptions)
-        } catch {
-            regularExpression = nil
-            throw RegExpError.InvalidPattern(pattern: pattern)
+    public init(_ pattern: String, _ options: RegExpOptions = []) {
+        var regularExpressionOptions: NSRegularExpressionOptions = [.DotMatchesLineSeparators]
+        if options.contains(RegExpOptions.CaseInsensitive) {
+            regularExpressionOptions.unionInPlace(.CaseInsensitive)
         }
+        if options.contains(RegExpOptions.AllowCommentsAndWhitespace) {
+            regularExpressionOptions.unionInPlace(.AllowCommentsAndWhitespace)
+        }
+        regularExpression = try! NSRegularExpression(pattern: pattern, options: regularExpressionOptions)
     }
     
     public func test(text: String) -> Bool {
@@ -48,10 +42,5 @@ public class RegExp {
 infix operator =~ {}
 
 func =~ (text: String, pattern: String) -> Bool {
-    do {
-        let regExp = try RegExp(pattern)
-        return regExp.test(text)
-    } catch {
-        return false
-    }
+    return RegExp(pattern).test(text)
 }

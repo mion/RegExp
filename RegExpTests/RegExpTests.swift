@@ -23,29 +23,22 @@ class RegExpTests: XCTestCase {
     }
     
     func testRegExpOptions() {
-        do {
-            let regexDotMatchNewLine = try RegExp("^Jump(.*)line\\sfoobar$")
-            expect(regexDotMatchNewLine.test("Jump\nto\nanother\nline foobar")).to(beTrue(), description: "Ignored default option dot matches line separator")
-            
-            let regexCaseInsensitive = try RegExp("hello (.*)", .CaseInsensitive)
-            expect(regexCaseInsensitive.test("HeLlo WoRLD")).to(beTrue(), description: "Ignored case insensitive option")
-            
-            let regexCommentsWhitespace = try RegExp("a+b # this is a comment", .AllowCommentsAndWhitespace)
-            expect(regexCommentsWhitespace.test("aaaaab")).to(beTrue(), description: "Ignored comments and whitespace option")
-            
-            let regexBothOptions = try RegExp("he+llo+ # world", [.CaseInsensitive, .AllowCommentsAndWhitespace])
-            expect(regexBothOptions.test("heeEEEeeeEeellOooO")).to(beTrue(), description: "ignored both case insensitive and comment+whitespace options")
-        } catch {
-            XCTAssert(false, "invalid pattern")
-        }
+        let regexDotMatchNewLine = RegExp("^Jump(.*)line\\sfoobar$")
+        expect(regexDotMatchNewLine.test("Jump\nto\nanother\nline foobar")).to(beTrue(), description: "Ignored default option dot matches line separator")
+        
+        let regexCaseInsensitive = RegExp("hello (.*)", .CaseInsensitive)
+        expect(regexCaseInsensitive.test("HeLlo WoRLD")).to(beTrue(), description: "Ignored case insensitive option")
+        
+        let regexCommentsWhitespace = RegExp("a+b # this is a comment", .AllowCommentsAndWhitespace)
+        expect(regexCommentsWhitespace.test("aaaaab")).to(beTrue(), description: "Ignored comments and whitespace option")
+        
+        let regexBothOptions = RegExp("he+llo+ # world", [.CaseInsensitive, .AllowCommentsAndWhitespace])
+        expect(regexBothOptions.test("heeEEEeeeEeellOooO")).to(beTrue(), description: "ignored both case insensitive and comment+whitespace options")
     }
     
     func testRegExpOperator() {
-        let phoneNumber = "Tel.: 9876-6543"
-        XCTAssertTrue(phoneNumber =~ "\\d{4}-\\d{4}")
-        
-        let fullName = "Mrs. Jane Smith"
-        XCTAssertTrue(fullName =~ "^Mrs.\\s(.*)$")
+        let phoneNumber = "Mrs. Jane Smith\nTel.: 9876-6543"
+        expect(phoneNumber =~ "^Mrs\\.\\s([^\n]*)\\sTel\\.:\\s\\d{4}-\\d{4}$").to(beTrue())
     }
     
     func testPerformanceExample() {
