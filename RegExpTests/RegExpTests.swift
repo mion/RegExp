@@ -24,17 +24,17 @@ class RegExpTests: XCTestCase {
     
     func testRegExpOptions() {
         do {
-            let re1 = try RegExp("^Jump(.*)line\\sfoobar$")
-            XCTAssertTrue(re1.test("Jump\nto\nanother\nline foobar"), "ignored default option dot matches line separator")
+            let regexDotMatchNewLine = try RegExp("^Jump(.*)line\\sfoobar$")
+            expect(regexDotMatchNewLine.test("Jump\nto\nanother\nline foobar")).to(beTrue(), description: "Ignored default option dot matches line separator")
             
-            let re2 = try RegExp("hello (.*)", .CaseInsensitive)
-            XCTAssertTrue(re2.test("HeLlo WoRLD"), "ignored case insensitive option")
+            let regexCaseInsensitive = try RegExp("hello (.*)", .CaseInsensitive)
+            expect(regexCaseInsensitive.test("HeLlo WoRLD")).to(beTrue(), description: "Ignored case insensitive option")
             
-            let re3 = try RegExp("a+b # this is a comment", .AllowCommentsAndWhitespace)
-            XCTAssertTrue(re3.test("aaaaab"), "ignored comments and whitespace option")
+            let regexCommentsWhitespace = try RegExp("a+b # this is a comment", .AllowCommentsAndWhitespace)
+            expect(regexCommentsWhitespace.test("aaaaab")).to(beTrue(), description: "Ignored comments and whitespace option")
             
-            let re4 = try RegExp("he+llo+ # world", [.CaseInsensitive, .AllowCommentsAndWhitespace])
-            XCTAssertTrue(re4.test("heeEEEeeeEeellOooO"), "ignored both case insensitive and comment+whitespace options")
+            let regexBothOptions = try RegExp("he+llo+ # world", [.CaseInsensitive, .AllowCommentsAndWhitespace])
+            expect(regexBothOptions.test("heeEEEeeeEeellOooO")).to(beTrue(), description: "ignored both case insensitive and comment+whitespace options")
         } catch {
             XCTAssert(false, "invalid pattern")
         }
